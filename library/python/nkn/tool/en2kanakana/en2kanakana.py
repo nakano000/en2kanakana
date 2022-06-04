@@ -31,7 +31,7 @@ from nkn.tool.en2kanakana.en2kanakana_ui import Ui_MainWindow
 from nkn.tool.en2kanakana.jisho_ui import Ui_Form
 
 APP_NAME = '英語2かなカナ'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 JISHO_CSV = config.ROOT_PATH.joinpath('data', 'jisho.csv')
 
