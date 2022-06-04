@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'C:\Users\yoshi\PycharmProjects\en2kanakana\library\python\nkn\tool\en2kanakana\en2kanakana.ui',
 # licensing of 'C:\Users\yoshi\PycharmProjects\en2kanakana\library\python\nkn\tool\en2kanakana\en2kanakana.ui' applies.
 #
-# Created: Fri Jun  3 14:01:28 2022
+# Created: Sat Jun  4 09:37:40 2022
 #      by: pyside2-uic  running on PySide2 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,9 +22,9 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName("groupBox")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.groupBox)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.enTextEdit = QtWidgets.QTextEdit(self.groupBox)
-        self.enTextEdit.setObjectName("enTextEdit")
-        self.horizontalLayout.addWidget(self.enTextEdit)
+        self.enPlainTextEdit = QtWidgets.QPlainTextEdit(self.groupBox)
+        self.enPlainTextEdit.setObjectName("enPlainTextEdit")
+        self.horizontalLayout.addWidget(self.enPlainTextEdit)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.enCopyButton = QtWidgets.QPushButton(self.groupBox)

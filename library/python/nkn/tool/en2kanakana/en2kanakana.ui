@@ -22,7 +22,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QTextEdit" name="enTextEdit"/>
+        <widget class="QPlainTextEdit" name="enPlainTextEdit"/>
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">

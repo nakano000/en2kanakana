@@ -7,6 +7,11 @@ from functools import partial
 
 from PySide2.QtCore import (
     Qt,
+    QRegExp,
+)
+from PySide2.QtGui import (
+    QSyntaxHighlighter,
+    QTextCharFormat, QFont,
 )
 from PySide2.QtWidgets import (
     QApplication,
@@ -113,6 +118,20 @@ class JishoWindow(QWidget):
         super().show()
 
 
+class Highlighter(QSyntaxHighlighter):
+    def highlightBlock(self, text):
+        _format = QTextCharFormat()
+        _format.setFontWeight(QFont.Bold)
+        _format.setForeground(Qt.red)
+        # pattern = QString("\\b[A-Za-z]+\\b")
+        expression = QRegExp('[A-Za-z]+')
+        index = expression.indexIn(text)
+        while index >= 0:
+            length = expression.matchedLength()
+            self.setFormat(index, length, _format)
+            index = expression.indexIn(text, index + length)
+
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -129,6 +148,10 @@ class MainWindow(QMainWindow):
 
         self.jisho_window = JishoWindow(self)
         #
+
+        self.hi = Highlighter(self.ui.kanaTextEdit.document())
+        self.hi2 = Highlighter(self.ui.kana2TextEdit.document())
+
         self.ui.enCopyButton.setStyleSheet(appearance.ex_stylesheet)
         self.ui.kanaCopyButton.setStyleSheet(appearance.ex_stylesheet)
         self.ui.kana2CopyButton.setStyleSheet(appearance.ex_stylesheet)
@@ -141,8 +164,8 @@ class MainWindow(QMainWindow):
         self.ui.jishoButton.clicked.connect(self.jisho_window.show)
         self.ui.closeButton.clicked.connect(self.close)
 
-        self.ui.enCopyButton.clicked.connect(partial(self.copy2clipboard, self.ui.enTextEdit))
-        self.ui.pasteButton.clicked.connect(partial(self.paste_from_clipboard, self.ui.enTextEdit))
+        self.ui.enCopyButton.clicked.connect(partial(self.copy2clipboard, self.ui.enPlainTextEdit))
+        self.ui.pasteButton.clicked.connect(partial(self.paste_from_clipboard, self.ui.enPlainTextEdit))
         self.ui.kanaCopyButton.clicked.connect(partial(self.copy2clipboard, self.ui.kanaTextEdit))
         self.ui.kana2CopyButton.clicked.connect(partial(self.copy2clipboard, self.ui.kana2TextEdit))
 
@@ -152,10 +175,10 @@ class MainWindow(QMainWindow):
 
     def paste_from_clipboard(self, w: QTextEdit):
         clipboard = QApplication.clipboard()
-        w.setText(clipboard.text())
+        w.setPlainText(clipboard.text())
 
     def conv(self):
-        s: str = self.ui.enTextEdit.toPlainText().replace('’', '`')
+        s: str = self.ui.enPlainTextEdit.toPlainText().replace('’', '`')
 
         # 単語 区切り探し
         split_list = [0]
