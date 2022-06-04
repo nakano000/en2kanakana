@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'C:\Users\yoshi\PycharmProjects\en2kanakana\library\python\nkn\tool\en2kanakana\en2kanakana.ui',
 # licensing of 'C:\Users\yoshi\PycharmProjects\en2kanakana\library\python\nkn\tool\en2kanakana\en2kanakana.ui' applies.
 #
-# Created: Sat Jun  4 09:37:40 2022
+# Created: Sat Jun  4 13:55:29 2022
 #      by: pyside2-uic  running on PySide2 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -63,6 +63,10 @@ class Ui_MainWindow(object):
         self.kanaCopyButton.setMinimumSize(QtCore.QSize(60, 60))
         self.kanaCopyButton.setObjectName("kanaCopyButton")
         self.verticalLayout_2.addWidget(self.kanaCopyButton)
+        self.kanaWithoutSpaceButton = QtWidgets.QPushButton(self.groupBox_2)
+        self.kanaWithoutSpaceButton.setMinimumSize(QtCore.QSize(60, 60))
+        self.kanaWithoutSpaceButton.setObjectName("kanaWithoutSpaceButton")
+        self.verticalLayout_2.addWidget(self.kanaWithoutSpaceButton)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.horizontalLayout_2.addLayout(self.verticalLayout_2)
@@ -80,6 +84,10 @@ class Ui_MainWindow(object):
         self.kana2CopyButton.setMinimumSize(QtCore.QSize(60, 60))
         self.kana2CopyButton.setObjectName("kana2CopyButton")
         self.verticalLayout_3.addWidget(self.kana2CopyButton)
+        self.kanakanaPushButton = QtWidgets.QPushButton(self.groupBox_3)
+        self.kanakanaPushButton.setMinimumSize(QtCore.QSize(60, 60))
+        self.kanakanaPushButton.setObjectName("kanakanaPushButton")
+        self.verticalLayout_3.addWidget(self.kanakanaPushButton)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem2)
         self.horizontalLayout_3.addLayout(self.verticalLayout_3)
@@ -107,7 +115,10 @@ class Ui_MainWindow(object):
         self.transButton.setText(QtWidgets.QApplication.translate("MainWindow", "変換", None, -1))
         self.groupBox_2.setTitle(QtWidgets.QApplication.translate("MainWindow", "カタカナ", None, -1))
         self.kanaCopyButton.setText(QtWidgets.QApplication.translate("MainWindow", "コピー", None, -1))
+        self.kanaWithoutSpaceButton.setText(QtWidgets.QApplication.translate("MainWindow", "コピー\n"
+"(空白抜き)", None, -1))
         self.groupBox_3.setTitle(QtWidgets.QApplication.translate("MainWindow", "かなカナ", None, -1))
         self.kana2CopyButton.setText(QtWidgets.QApplication.translate("MainWindow", "コピー", None, -1))
+        self.kanakanaPushButton.setText(QtWidgets.QApplication.translate("MainWindow", "かな<=>カナ", None, -1))
         self.closeButton.setText(QtWidgets.QApplication.translate("MainWindow", "Close", None, -1))
 

@@ -125,6 +125,20 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="kanaWithoutSpaceButton">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>コピー
+(空白抜き)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer_2">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -163,6 +177,19 @@
            </property>
            <property name="text">
             <string>コピー</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="kanakanaPushButton">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>かな&lt;=&gt;カナ</string>
            </property>
           </widget>
          </item>

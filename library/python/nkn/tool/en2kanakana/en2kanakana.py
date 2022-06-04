@@ -1,7 +1,6 @@
 import sys
 import alkana
 import string
-import wanakana
 
 from functools import partial
 
@@ -34,6 +33,51 @@ APP_NAME = '英語2かなカナ'
 __version__ = '0.1.1'
 
 JISHO_CSV = config.ROOT_PATH.joinpath('data', 'jisho.csv')
+
+KATAKANA = list(
+    'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ'
+    'ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ'
+    'ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ'
+)
+HIRAGANA = list(
+    'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそ'
+    'ぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺ'
+    'ほぼぽまみむめもゃやゅゆょよらりるれろわをんーゎゐゑゕゖゔ'
+)
+H2K = dict(zip(HIRAGANA, KATAKANA))
+K2H = dict(zip(KATAKANA, HIRAGANA))
+
+
+def kata2hira(s: str):
+    r: str = ''
+    for c in s:
+        if c in KATAKANA:
+            r += K2H[c]
+        else:
+            r += c
+    return r
+
+
+def hira2kata(s: str):
+    r: str = ''
+    for c in s:
+        if c in HIRAGANA:
+            r += H2K[c]
+        else:
+            r += c
+    return r
+
+
+def kana2kana(s: str):
+    r: str = ''
+    for c in s:
+        if c in KATAKANA:
+            r += K2H[c]
+        elif c in HIRAGANA:
+            r += H2K[c]
+        else:
+            r += c
+    return r
 
 
 def read_jisho() -> str:
@@ -158,6 +202,9 @@ class MainWindow(QMainWindow):
         self.ui.pasteButton.setStyleSheet(appearance.in_stylesheet)
         self.ui.transButton.setStyleSheet(appearance.in_stylesheet)
 
+        self.ui.kanaWithoutSpaceButton.setStyleSheet(appearance.ex_stylesheet)
+        self.ui.kanakanaPushButton.setStyleSheet(appearance.in_stylesheet)
+
         # event
 
         self.ui.transButton.clicked.connect(self.conv)
@@ -169,13 +216,23 @@ class MainWindow(QMainWindow):
         self.ui.kanaCopyButton.clicked.connect(partial(self.copy2clipboard, self.ui.kanaTextEdit))
         self.ui.kana2CopyButton.clicked.connect(partial(self.copy2clipboard, self.ui.kana2TextEdit))
 
+        self.ui.kanaWithoutSpaceButton.clicked.connect(partial(self.copy2clipboardWithoutSpace, self.ui.kanaTextEdit))
+        self.ui.kanakanaPushButton.clicked.connect(partial(self.kana2kana, self.ui.kana2TextEdit))
+
     def copy2clipboard(self, w: QTextEdit):
         clipboard = QApplication.clipboard()
         clipboard.setText(w.toPlainText())
 
+    def copy2clipboardWithoutSpace(self, w: QTextEdit):
+        clipboard = QApplication.clipboard()
+        clipboard.setText(w.toPlainText().replace(' ', ''))
+
     def paste_from_clipboard(self, w: QTextEdit):
         clipboard = QApplication.clipboard()
         w.setPlainText(clipboard.text())
+
+    def kana2kana(self, w: QTextEdit):
+        w.setPlainText(kana2kana(w.toPlainText()))
 
     def conv(self):
         s: str = self.ui.enPlainTextEdit.toPlainText().replace('’', '`')
@@ -209,8 +266,10 @@ class MainWindow(QMainWindow):
         lst2 = lst.copy()
         for i, s in enumerate(lst2):
             if i % 2 == 1:
-                if wanakana.is_katakana(s):
-                    lst2[i] = wanakana.to_hiragana(s)
+                lst2[i] = kata2hira(s)
+            else:
+                lst2[i] = hira2kata(s)
+
         r2 = ''.join(lst2)
         for c in ['.', '?', '!']:
             r2 = r2.replace(c, c + '\n')
