@@ -82,7 +82,7 @@ def kana2kana(s: str):
 
 def read_jisho() -> str:
     if JISHO_CSV.is_file():
-        return JISHO_CSV.read_text()
+        return JISHO_CSV.read_text(encoding='utf-8')
     return ''
 
 
@@ -154,7 +154,7 @@ class JishoWindow(QWidget):
         self.ui.jishoTextEdit.setPlainText(read_jisho())
 
     def save_jisho(self):
-        JISHO_CSV.write_text(self.ui.jishoTextEdit.toPlainText())
+        JISHO_CSV.write_text(self.ui.jishoTextEdit.toPlainText(), encoding='utf-8')
         self.close()
 
     def show(self):
